@@ -10,11 +10,14 @@ puts "Type:
 'introspect' - print program out on screen".neon
 command = gets.chomp
 
-content_read = lambda {|content| content.read}
+def read_file(name, reader = ->(content) {content.read})
+	reader.call(File.open(name))
+end
+
 
 case command
 	when "save" then File.open("hello_from_ruby.txt", "w"){ |content| content.write input}
 	when "add" then File.open("hello_from_ruby.txt", "a"){ |content| content.write input}
-	when "read" then puts File.open("hello_from_ruby.txt"){|content| content.read}
-	when "introspect" then puts File.open("files.rb"){|content| content.read}.green
+	when "read" then puts read_file("hello_from_ruby.txt")
+	when "introspect" then puts read_file("files.rb").green
 end
