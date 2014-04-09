@@ -5,10 +5,12 @@ input = gets.chomp
 #create new file hello_from_ruby
 puts "Type:
 'save' - to save input to file
-'read' - read the current file"
+'read' - read the current file
+'introspect' - print program out on screen"
 command = gets.chomp
 
 case command
 	when "save" then File.open("hello_from_ruby.txt", "w"){ |content| content.write input}
 	when "read" then puts File.open("hello_from_ruby.txt"){|content| content.read}
+	when "introspect" then puts File.open("files.rb"){|content| content.read}
 end
