@@ -11,20 +11,20 @@ puts "Type:
 command = gets.chomp
 
 def read_file(name, reader = ->(content) {content.read})
-	reader.call(File.open(name))
+	puts reader.call(File.open(name)).green
 end
 
-def write_file(name, writer = ->(content) {content.write @input})
+def write_input_to(name, writer = ->(content) {content.write @input})
 	writer.call(File.open(name, "w"))
 end
 
-def append_to_file(name, writer = ->(content) {content.write @input})
+def append_input_to(name, writer = ->(content) {content.write @input})
 	writer.call(File.open(name, "a"))
 end
 
 case command
-	when "save" then write_file("hello_from_ruby.txt")
-	when "add" then append_to_file("hello_from_ruby.txt")
-	when "read" then puts read_file("hello_from_ruby.txt")
-	when "introspect" then puts read_file("files.rb").green
+	when "save" then write_input_to("hello_from_ruby.txt")
+	when "add" then append_input_to("hello_from_ruby.txt")
+	when "read" then read_file("hello_from_ruby.txt")
+	when "introspect" then read_file("files.rb")
 end
