@@ -1,7 +1,7 @@
 require 'color_text'
 
 puts "Hey, there, go ahead, write something and then decide what to do with it. If you don´t want to enter any input, just press return".purple
-input = gets.chomp
+@input = gets.chomp
 
 puts "Type:
 'save' - to save input to file
@@ -14,10 +14,17 @@ def read_file(name, reader = ->(content) {content.read})
 	reader.call(File.open(name))
 end
 
+def write_file(name, writer = ->(content) {content.write @input})
+	writer.call(File.open(name, "w"))
+end
+
+def append_to_file(name, writer = ->(content) {content.write @input})
+	writer.call(File.open(name, "a"))
+end
 
 case command
-	when "save" then File.open("hello_from_ruby.txt", "w"){ |content| content.write input}
-	when "add" then File.open("hello_from_ruby.txt", "a"){ |content| content.write input}
+	when "save" then write_file("hello_from_ruby.txt")
+	when "add" then append_to_file("hello_from_ruby.txt")
 	when "read" then puts read_file("hello_from_ruby.txt")
 	when "introspect" then puts read_file("files.rb").green
 end
